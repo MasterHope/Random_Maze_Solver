@@ -7,3 +7,5 @@ A list of package are required to run successfully this code:
 - threading
 - numpy
 - joblib
+
+You could install them using the command pip install <package_name>
