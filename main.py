@@ -17,7 +17,6 @@ def show_video(file_name):
     while capture.isOpened():
         result, frame = capture.read()
         if result == True:
-            frame = cv.resize(frame,(256,256))
             cv.imshow(file_name, frame)
             if(cv.waitKey(1) & 0xFF == ord('q')):
                 break
