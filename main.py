@@ -64,9 +64,7 @@ while(labyrinth_grid_dimension<=0):
             print("The grid value should be higher than zero... Try to insert a different number")
         else:
             labyrinth_grid_dimension = int(labyrinth_grid_dimension_aux)
-    else:
-        print("The dimension of the grid must be numeric. Try to insert a different value...")
-    while True:
+            while True:
                 choice = input("Do you want to run parallel or sequential version? --- Type '1' for sequential or '2' for parallel or 'Any Key' to close ")
                 if choice == "1" or choice == "2":
                     if choice == "1" :
@@ -96,5 +94,6 @@ while(labyrinth_grid_dimension<=0):
                 else:
                     print("...GoodBye!...")
                     break
+    else:
+        print("The dimension of the grid must be numeric. Try to insert a different value...")
     
-
