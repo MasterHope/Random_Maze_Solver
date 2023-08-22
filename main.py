@@ -26,17 +26,13 @@ def show_video(file_name):
     cv.destroyAllWindows()
 
 
-def sequential_program(labyrinth_grid_dimension, width_height_pixels, file_name):
-    lab = Labyrinth(labyrinth_grid_dimension)
-    GenerateLabyrinth.generateLabyrinth(lab)
+def sequential_program(lab,labyrinth_grid_dimension, width_height_pixels, file_name):
     draw_solve = LabyrinthDrawSolve(lab, width_height_pixels)
     video, img = draw_solve.init_video_particles(file_name)
     draw_solve.find_exit_with_random_particles(video,img)
     fnd.FOUND_PATH=False
 
-def parallel_program(labyrinth_grid_dimension, width_height_pixels,number_of_threads, file_name):
-    lab = Labyrinth(labyrinth_grid_dimension)
-    GenerateLabyrinth.generateLabyrinth(lab)
+def parallel_program(lab,labyrinth_grid_dimension, width_height_pixels,number_of_threads, file_name):
     draw_solve = LabyrinthDrawSolve(lab, width_height_pixels)
     img = draw_solve.create_labyrinth()
     video = draw_solve.create_video(img,file_name)
@@ -63,6 +59,9 @@ while(labyrinth_grid_dimension<=0):
             print("The grid value should be higher than zero... Try to insert a different number")
         else:
             labyrinth_grid_dimension = int(labyrinth_grid_dimension_aux)
+            lab = Labyrinth(labyrinth_grid_dimension)
+            GenerateLabyrinth.generateLabyrinth(lab)
+            print("Labyrinth generated!")
             while True:
                 choice = input("Do you want to run parallel or sequential version? --- Type '1' for sequential or '2' for parallel or 'Any Key' to close ")
                 if choice == "1" or choice == "2":
@@ -70,7 +69,7 @@ while(labyrinth_grid_dimension<=0):
                         print("...Sequential program is running... When the program ends, a video will open. Press q to close the video...")
                         start_time = time.time()
                         file_name = create_file_name_with_timestamp("sequential_path")
-                        sequential_program(labyrinth_grid_dimension,256,file_name)
+                        sequential_program(lab,labyrinth_grid_dimension,256,file_name)
                         print("Time in seconds sequential program:",time.time()- start_time)
                         show_video(file_name)
                     elif choice=="2":
@@ -87,7 +86,7 @@ while(labyrinth_grid_dimension<=0):
                         print("...Parallel program is running... When the program ends, a video will open. Press q to close the video...")
                         start_time = time.time()
                         file_name = create_file_name_with_timestamp("parallel_path")
-                        parallel_program(int(labyrinth_grid_dimension),256,num_threads, file_name)
+                        parallel_program(lab,int(labyrinth_grid_dimension),256,num_threads, file_name)
                         print("Time in seconds parallel program:",time.time()- start_time)
                         show_video(file_name)
                 else:
