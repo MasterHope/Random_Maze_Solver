@@ -247,29 +247,42 @@ class LabyrinthDrawSolve:
         first_point_delimiter,
         second_point_delimiter):
         if self.is_particle_going_north(tuple_particle_position_new,first_point_delimiter) == True and self.is_particle_going_west(tuple_particle_position_new,first_point_delimiter):
-            element_grid = self.labyrinth.get_grid()[current_grid_position[0]-1][current_grid_position[1]-1]
-            if(element_grid.has_wall_south()==True and element_grid.has_wall_east()==True):
-                return False
+            if current_grid_position[0]-1 > 0 and current_grid_position[1]-1 > 0:
+                element_grid = self.labyrinth.get_grid()[current_grid_position[0]-1][current_grid_position[1]-1]
+                if(element_grid.has_wall_south()==True and element_grid.has_wall_east()==True):
+                    return False
+                else:
+                    return True
             else:
-                return True
+                return False
+            
         elif self.is_particle_going_north(tuple_particle_position_new,first_point_delimiter) == True and self.is_particle_going_east(tuple_particle_position_new,second_point_delimiter):
-            element_grid = self.labyrinth.get_grid()[current_grid_position[0]-1][current_grid_position[1]+1]
-            if(element_grid.has_wall_south()==True and element_grid.has_wall_west()==True):
-                return False
+            if current_grid_position[0]-1 > 0 and current_grid_position[1]+1 < self.labyrinth.get_dimension():
+                element_grid = self.labyrinth.get_grid()[current_grid_position[0]-1][current_grid_position[1]+1]
+                if(element_grid.has_wall_south()==True and element_grid.has_wall_west()==True):
+                    return False
+                else:
+                    return True
             else:
-                return True
+                return False
         elif self.is_particle_going_south(tuple_particle_position_new,second_point_delimiter) == True and self.is_particle_going_west(tuple_particle_position_new,first_point_delimiter):
-            element_grid = self.labyrinth.get_grid()[current_grid_position[0]+1][current_grid_position[1]-1]
-            if(element_grid.has_wall_north()==True and element_grid.has_wall_east()==True):
-                return False
+            if current_grid_position[0]+1 < self.labyrinth.get_dimension() and current_grid_position[1]-1 > 0:   
+                element_grid = self.labyrinth.get_grid()[current_grid_position[0]+1][current_grid_position[1]-1]
+                if(element_grid.has_wall_north()==True and element_grid.has_wall_east()==True):
+                    return False
+                else:
+                    return True
             else:
-                return True
+                return False
         elif self.is_particle_going_south(tuple_particle_position_new,second_point_delimiter) == True and self.is_particle_going_east(tuple_particle_position_new,second_point_delimiter):
-            element_grid = self.labyrinth.get_grid()[current_grid_position[0]+1][current_grid_position[1]+1]
-            if(element_grid.has_wall_north()==True and element_grid.has_wall_west()==True):
-                return False
+            if current_grid_position[0] +1 <self.labyrinth.get_dimension() and current_grid_position[1]+1 < self.labyrinth.get_dimension():
+                element_grid = self.labyrinth.get_grid()[current_grid_position[0]+1][current_grid_position[1]+1]
+                if(element_grid.has_wall_north()==True and element_grid.has_wall_west()==True):
+                    return False
+                else:
+                    return True
             else:
-                return True
+                return False
         return True
 
     def is_particle_going_east(
