@@ -43,8 +43,6 @@ def parallel_program(lab,labyrinth_grid_dimension, width_height_pixels,number_of
 
 
 
-print("... Welcome to labyrinth particle solver program! ...")
-labyrinth_grid_dimension = -1
 def create_file_name_with_timestamp(file_name):
     current_GMT = time.gmtime()
     time_stamp = str(calendar.timegm(current_GMT))
@@ -52,46 +50,51 @@ def create_file_name_with_timestamp(file_name):
     print(file_name)
     return file_name
 
-while(labyrinth_grid_dimension<=0):
-    labyrinth_grid_dimension_aux = input("Choice the dimension of the grid of the labyrinth - we reccomend to use small grid to make sure the program ends ")
-    if(labyrinth_grid_dimension_aux.isnumeric()):
-        if(int(labyrinth_grid_dimension_aux) <= 0):
-            print("The grid value should be higher than zero... Try to insert a different number")
-        else:
-            labyrinth_grid_dimension = int(labyrinth_grid_dimension_aux)
-            lab = Labyrinth(labyrinth_grid_dimension)
-            GenerateLabyrinth.generateLabyrinth(lab)
-            print("Labyrinth generated!")
-            while True:
-                choice = input("Do you want to run parallel or sequential version? --- Type '1' for sequential or '2' for parallel or 'Any Key' to close ")
-                if choice == "1" or choice == "2":
-                    if choice == "1" :
-                        print("...Sequential program is running... When the program ends, a video will open. Press q to close the video...")
-                        start_time = time.time()
-                        file_name = create_file_name_with_timestamp("sequential_path")
-                        sequential_program(lab,labyrinth_grid_dimension,256,file_name)
-                        print("Time in seconds sequential program:",time.time()- start_time)
-                        show_video(file_name)
-                    elif choice=="2":
-                        num_threads = -1
-                        while num_threads<=-1:
-                            num_threads_aux = input("Insert number of threads to use ")
-                            if num_threads_aux.isnumeric() == False:
-                                print("Number of threads must be a number... Try insert a different value...")
-                            else:
-                                if(int(num_threads_aux)<=0):
-                                    print("Number of threads must be a positive number... Try insert a different value...")
+
+
+if __name__ == "__main__":
+    print("... Welcome to labyrinth particle solver program! ...")
+    labyrinth_grid_dimension = -1
+    while(labyrinth_grid_dimension<=0):
+        labyrinth_grid_dimension_aux = input("Choice the dimension of the grid of the labyrinth - we reccomend to use small grid to make sure the program ends ")
+        if(labyrinth_grid_dimension_aux.isnumeric()):
+            if(int(labyrinth_grid_dimension_aux) <= 0):
+                print("The grid value should be higher than zero... Try to insert a different number")
+            else:
+                labyrinth_grid_dimension = int(labyrinth_grid_dimension_aux)
+                lab = Labyrinth(labyrinth_grid_dimension)
+                GenerateLabyrinth.generateLabyrinth(lab)
+                print("Labyrinth generated!")
+                while True:
+                    choice = input("Do you want to run parallel or sequential version? --- Type '1' for sequential or '2' for parallel or 'Any Key' to close ")
+                    if choice == "1" or choice == "2":
+                        if choice == "1" :
+                            print("...Sequential program is running... When the program ends, a video will open. Press q to close the video...")
+                            start_time = time.time()
+                            file_name = create_file_name_with_timestamp("sequential_path")
+                            sequential_program(lab,labyrinth_grid_dimension,256,file_name)
+                            print("Time in seconds sequential program:",time.time()- start_time)
+                            show_video(file_name)
+                        elif choice=="2":
+                            num_threads = -1
+                            while num_threads<=-1:
+                                num_threads_aux = input("Insert number of threads to use ")
+                                if num_threads_aux.isnumeric() == False:
+                                    print("Number of threads must be a number... Try insert a different value...")
                                 else:
-                                    num_threads = int(num_threads_aux)
-                        print("...Parallel program is running... When the program ends, a video will open. Press q to close the video...")
-                        start_time = time.time()
-                        file_name = create_file_name_with_timestamp("parallel_path")
-                        parallel_program(lab,int(labyrinth_grid_dimension),256,num_threads, file_name)
-                        print("Time in seconds parallel program:",time.time()- start_time)
-                        show_video(file_name)
-                else:
-                    print("...GoodBye!...")
-                    break
-    else:
-        print("The dimension of the grid must be numeric. Try to insert a different value...")
-    
+                                    if(int(num_threads_aux)<=0):
+                                        print("Number of threads must be a positive number... Try insert a different value...")
+                                    else:
+                                        num_threads = int(num_threads_aux)
+                            print("...Parallel program is running... When the program ends, a video will open. Press q to close the video...")
+                            start_time = time.time()
+                            file_name = create_file_name_with_timestamp("parallel_path")
+                            parallel_program(lab,int(labyrinth_grid_dimension),256,num_threads, file_name)
+                            print("Time in seconds parallel program:",time.time()- start_time)
+                            show_video(file_name)
+                    else:
+                        print("...GoodBye!...")
+                        break
+        else:
+            print("The dimension of the grid must be numeric. Try to insert a different value...")
+        
